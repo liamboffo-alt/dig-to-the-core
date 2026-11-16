@@ -52,6 +52,6 @@ export const LAYERS: LayerDef[] = [
     id: 'inner_core', name: 'Inner Core', start: 5_150_000, end: 6_371_000, hardness: 9e17, hardnessEnd: 9e21, value: 20,
     ores: std('ironcrystal', 'osmium', 'helium3', 'heartstone'),
     barrier: { name: 'The Heart of the Earth', desc: 'The exact centre. Nothing lies beyond it.', hp: 1.5e25, color: 0xffffff },
-    look: { wall: 0xfff3c4, wall2: 0xffc94d, floor: 0xffffff, fog: 0xa86a10, debris: 0xfffbe6, emissive: 0xffe9a0, glow: 1 },
+    look: { wall: 0xf2d98a, wall2: 0xffc94d, floor: 0xd9c9a0, fog: 0xa86a10, debris: 0xfffbe6, emissive: 0xffd76a, glow: 0.75 },
   },
 ];

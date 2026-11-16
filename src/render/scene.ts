@@ -217,12 +217,12 @@ export class GameScene {
     this.scene.add(this.floorGroup);
 
     // Barrier slab, shown when a layer boundary blocks the way.
-    const slab = new THREE.Mesh(new THREE.CylinderGeometry(4.4, 4.9, 0.4, 9), this.barrierMat);
+    const slab = new THREE.Mesh(new THREE.CylinderGeometry(3.3, 3.8, 0.45, 9), this.barrierMat);
     slab.position.y = 0.2;
     this.barrier.add(slab);
     for (let i = 0; i < 7; i++) {
-      const crack = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.05, 4.2), glowMat(0xffe082, 0.95));
-      crack.position.y = 0.42;
+      const crack = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.05, 3.2), glowMat(0xffe082, 0.95));
+      crack.position.y = 0.47;
       crack.rotation.y = (i / 7) * Math.PI + Math.random() * 0.3;
       this.cracks.push(crack);
       this.barrier.add(crack);
@@ -297,7 +297,7 @@ export class GameScene {
       const machine = this.digger.machine;
       if (machine) {
         this.machineSlot.add(machine.group);
-        this.digger.group.position.set(-2.5, 0, 1.3);
+        this.digger.group.position.set(-2.1, 0, 1.6);
         this.digger.group.rotation.y = 1.25;
       } else {
         const reach = TOOLS[s.tool].model === 'spoon' ? 0.75 : TOOLS[s.tool].anim === 'pound' ? 0.55 : 1.3;
@@ -393,9 +393,10 @@ export class GameScene {
         this.peers.set(p.id, peer);
       }
       if (peer.tool !== p.tool) { peer.tool = p.tool; peer.digger.setTool(p.tool); }
-      const a = 0.35 + (i + 1) * (Math.PI * 1.3 / 9) * (i % 2 ? 1 : -1) + (i % 2 ? 0 : Math.PI);
-      const r = 3.3;
-      peer.digger.group.position.set(Math.cos(a) * r, 0, Math.sin(a) * r * 0.8 - 0.6);
+      // Fan partners out across the back of the pit, alternating right and left of centre.
+      const a = -Math.PI / 2 + Math.ceil((i + 1) / 2) * 0.5 * (i % 2 ? -1 : 1);
+      const r = 2.9 + (i > 3 ? 1.2 : 0);
+      peer.digger.group.position.set(Math.cos(a) * r + 0.6, 0, Math.sin(a) * r);
       peer.digger.group.rotation.y = Math.atan2(-peer.digger.group.position.x, -peer.digger.group.position.z);
     });
     for (const [id, peer] of this.peers) {
@@ -497,10 +498,10 @@ export class GameScene {
     this.glow += (this.target.glow - this.glow) * k;
     this.wallMat.emissiveIntensity = this.glow * (0.85 + Math.sin(this.time * 1.7) * 0.15);
     this.floorMat.emissive.copy(this.wallMat.emissive);
-    this.floorMat.emissiveIntensity = this.glow * 0.55;
+    this.floorMat.emissiveIntensity = this.glow * 0.3;
     this.hemi.color.copy(bg).lerp(new THREE.Color(0xffffff), 0.55);
     this.hemi.groundColor.copy(this.floorMat.color).multiplyScalar(0.5);
-    this.hemi.intensity = 1.25 - this.glow * 0.3;
+    this.hemi.intensity = 1.25 - this.glow * 0.55;
     this.sun.intensity = 1.7 - this.glow * 0.9;
     this.glowLight.color.copy(this.target.emissive);
     this.glowLight.intensity = this.glow * 60;
@@ -588,13 +589,13 @@ export class GameScene {
     const machine = this.digger.machine ? 1 : 0;
     const orbit = this.finale > 0 ? this.finale * 0.25 : Math.sin(this.time * 0.25) * 0.05;
     const portrait = this.camera.aspect < 0.8;
-    const dist = (portrait ? 6.4 : 7.7) + machine * 1.2;
+    const dist = (portrait ? 6.4 : 7.7) + machine * (portrait ? 4.2 : 1.6);
     this.camera.position.set(
       Math.sin(orbit) * dist + Math.sin(t * 1.3) * shake * 0.5,
-      (portrait ? 5.0 : 6.0) + machine * 0.8 + Math.sin(t * 1.7 + 1) * shake * 0.5,
+      (portrait ? 5.0 : 6.0) + machine * (portrait ? 2.6 : 1.0) + Math.sin(t * 1.7 + 1) * shake * 0.5,
       Math.cos(orbit) * dist + Math.sin(t) * shake * 0.3,
     );
-    this.camera.lookAt(Math.sin(t * 0.9) * shake * 0.25, (portrait ? 0.2 : 0.9) + machine * 0.7 - this.floorDrop * 0.5, 0);
+    this.camera.lookAt(Math.sin(t * 0.9) * shake * 0.25, (portrait ? 0.2 : 0.9) + machine * (portrait ? 1.0 : 0.7) - this.floorDrop * 0.5, 0);
     this.camera.rotation.z += Math.sin(t * 1.1) * shake * 0.035;
   }
   private gemDummy = new THREE.Object3D();

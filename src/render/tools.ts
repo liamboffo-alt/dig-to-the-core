@@ -262,7 +262,7 @@ export function buildTool(def: ToolDef, tier: number): ToolModel {
   const isHand = def.model in hand;
   const builder = hand[def.model] ?? machine[def.model] ?? machine.drill;
   const update = builder(def, group);
-  if (!isHand) group.scale.setScalar(Math.min(1.25, 0.9 + tier * 0.022));
+  if (!isHand) group.scale.setScalar(Math.min(1.05, 0.72 + tier * 0.022));
   return { group, kind: isHand ? 'hand' : 'machine', update };
 }
 
