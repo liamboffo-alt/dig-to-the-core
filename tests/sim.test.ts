@@ -127,7 +127,7 @@ describe('damage', () => {
     const ev = dig(p, h, 20_000);
     const hits = ev.filter((e) => e.type === 'hit') as Extract<SimEvent, { type: 'hit' }>[];
     expect(p.combo).toBe(BALANCE.combo.baseMax);
-    expect(hits[hits.length - 1].damage).toBeCloseTo(hits[0].damage * (1 + BALANCE.combo.baseMax * BALANCE.combo.damagePerCombo), 9);
+    expect(hits[hits.length - 1].damage).toBeCloseTo(getStats(p, 0).hitDamage * (1 + BALANCE.combo.baseMax * BALANCE.combo.damagePerCombo), 9);
     tick(p, h, BALANCE.combo.decayMs + 1, []);
     expect(p.combo).toBe(0);
   });
@@ -328,7 +328,8 @@ describe('progress', () => {
     expect(res.seconds).toBe(s.offlineCapH * 3600);
     expect(h.depth).toBe(LAYERS[0].end);
     expect(h.barrierHp).toBe(-1);
-    expect(p.cash).toBeCloseTo(s.helperDps * res.seconds * s.offlineEff * LAYERS[0].value, 3);
+    expect(res.cash).toBeCloseTo(s.helperDps * res.seconds * s.offlineEff * LAYERS[0].value, 3);
+    expect(p.cash).toBeGreaterThanOrEqual(res.cash); // plus milestone rewards on the way down
   });
 });
 

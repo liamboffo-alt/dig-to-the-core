@@ -18,7 +18,7 @@ export const TOOLS: ToolDef[] = [
   { id: 'singularity', name: 'Singularity Bore', desc: 'A pet black hole on a leash.', power: 6.3e7, cost: 5e19, model: 'singularity', anim: 'spin', color: 0x212121, glow: 0xb388ff, shake: 0.64, sound: 'boom' },
   { id: 'quantum', name: 'Quantum Unmaker', desc: 'The rock was never there.', power: 4e8, cost: 5e21, model: 'quantum', anim: 'beam', color: 0x00e676, glow: 0x69f0ae, shake: 0.70, sound: 'boom' },
   { id: 'darkmatter', name: 'Dark Matter Maw', desc: 'It is hungry, and it is not picky.', power: 2.5e9, cost: 5e23, model: 'singularity', anim: 'spin', color: 0x311b92, glow: 0xff1744, shake: 0.78, sound: 'boom' },
-  { id: 'tectonic', name: 'Tectonic Splitter', desc: 'Parts continents like curtains.', power: 1.6e10, cost: 5e25, model: 'jackhammer', anim: 'pound', color: 0xbf360c, glow: 0xffab00, shake: 0.86, sound: 'boom' },
+  { id: 'tectonic', name: 'Tectonic Splitter', desc: 'Parts continents like curtains.', power: 1.6e10, cost: 5e25, model: 'cracker', anim: 'pound', color: 0xbf360c, glow: 0xffab00, shake: 0.86, sound: 'boom' },
   { id: 'shear', name: 'Reality Shear', desc: 'Cuts the idea of rock out of the universe.', power: 1e11, cost: 5e27, model: 'lance', anim: 'beam', color: 0xeceff1, glow: 0x00e5ff, shake: 0.93, sound: 'boom' },
   { id: 'cracker', name: 'Planet Cracker', desc: 'The last tool you will ever need.', power: 6.3e11, cost: 5e29, model: 'cracker', anim: 'pound', color: 0xffd600, glow: 0xff6d00, shake: 1.00, sound: 'boom' },
 ];
